@@ -1,0 +1,46 @@
+-- This file has been generated from package.yaml by hpack version 0.28.2.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 8ef99cecffffdc5bdecb2f0505df8ea082ef971132528d21f44db77153d38cca
+
+name:           projectcompiler
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/projectcompiler#readme>
+homepage:       https://github.com/githubuser/projectcompiler#readme
+bug-reports:    https://github.com/githubuser/projectcompiler/issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2018 Author name here
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+cabal-version:  >= 1.10
+extra-source-files:
+    ChangeLog.md
+    README.md
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/projectcompiler
+
+
+
+executable main-exe
+  main-is: Main.hs
+  other-modules:
+      Parser
+      Lexer
+  hs-source-dirs:
+      src
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , directory >= 1.3.1.5
+    , containers >= 0.5.11
+    , array >= 0.5.2
+  default-language: Haskell2010
+
+
+
+

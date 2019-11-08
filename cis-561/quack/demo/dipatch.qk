@@ -1,0 +1,7 @@
+a = 1 + 2;
+b = "Hello world";
+c = a;
+d = b;
+e = d;
+e.PRINT();
+

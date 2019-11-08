@@ -1,0 +1,309 @@
+bash-3.2$ stack repl
+Building all executables for `Lecture8' once. After a successful build of all of them, only specified executables will be rebuilt.
+Lecture8-0.1.0.0: configure (lib + exe)
+Configuring Lecture8-0.1.0.0...
+Lecture8-0.1.0.0: initial-build-steps (lib + exe)
+The following GHC options are incompatible with GHCi and have not been passed to it: -threaded
+Configuring GHCi with the following packages: Lecture8
+Using main module: 1. Package `Lecture8' component exe:Lecture8-exe with main-is file: /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/app/Main.hs
+GHCi, version 8.2.2: http://www.haskell.org/ghc/  :? for help
+Loaded GHCi configuration from /Users/paul/.ghc/ghci.conf
+[1 of 5] Compiling Arith            ( /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/src/Arith.hs, /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/.stack-work/odir/Arith.o )
+[2 of 5] Compiling CSV              ( /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/src/CSV.hs, /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/.stack-work/odir/CSV.o )
+[3 of 5] Compiling Lib              ( /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/src/Lib.hs, /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/.stack-work/odir/Lib.o )
+[4 of 5] Compiling Main             ( /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/app/Main.hs, /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/.stack-work/odir/Main.o )
+[5 of 5] Compiling XML              ( /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/src/XML.hs, /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/.stack-work/odir/XML.o )
+Ok, five modules loaded.
+Loaded GHCi configuration from /private/var/folders/9d/2ghs6tqj11q3bsjq68g41vj40000gn/T/ghci11717/ghci-script
+Prelude Arith CSV Lib XML Main> parseTest ab "ab"
+
+<interactive>:1:1: error:
+    Variable not in scope:
+      parseTest :: Text.Parsec.String.Parser (Char, Char) -> [Char] -> t
+Prelude Arith CSV Lib XML Main> import Text.Parsec
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest ab "ab"
+('a','b')
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest ab "fab"
+parse error at (line 1, column 1):
+unexpected "f"
+expecting "a"
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest ab "a"
+parse error at (line 1, column 2):
+unexpected end of input
+expecting "b"
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest ab "ablasjdflkasjdflajsdlkfjasldf"
+('a','b')
+Prelude Arith CSV Lib XML Text.Parsec Main> :reload
+[5 of 5] Compiling Lib              ( /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/src/Lib.hs, /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/.stack-work/odir/Lib.o )
+Ok, five modules loaded.
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest exactly_ab "ablasjdflkasjdflajsdlkfjasldf"
+parse error at (line 1, column 3):
+unexpected 'l'
+expecting end of input
+Prelude Arith CSV Lib XML Text.Parsec Main> :reload
+[5 of 5] Compiling Lib              ( /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/src/Lib.hs, /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/.stack-work/odir/Lib.o )
+Ok, five modules loaded.
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest abOrba "ablasjdflkasjdflajsdlkfjasldf"
+('a','b')
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest abOrba "ab"
+('a','b')
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest abOrba "ba"
+('b','a')
+Prelude Arith CSV Lib XML Text.Parsec Main> :reload
+[5 of 5] Compiling Lib              ( /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/src/Lib.hs, /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/.stack-work/odir/Lib.o )
+Ok, five modules loaded.
+Prelude Arith CSV Lib XML Text.Parsec Main> :type lotsOfabOrba
+lotsOfabOrba
+  :: ParsecT String () Data.Functor.Identity.Identity [(Char, Char)]
+Prelude Arith CSV Lib XML Text.Parsec Main> :reload
+[5 of 5] Compiling Lib              ( /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/src/Lib.hs, /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/.stack-work/odir/Lib.o )
+Ok, five modules loaded.
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest lotsOfabOrba ""
+[]
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest lotsOfabOrba "sdlfsldkfj"
+[]
+Prelude Arith CSV Lib XML Text.Parsec Main> :reload
+[5 of 5] Compiling Lib              ( /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/src/Lib.hs, /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/.stack-work/odir/Lib.o )
+Ok, five modules loaded.
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest lotsOfabOrba "sdlfsldkfj"
+parse error at (line 1, column 1):
+unexpected "s"
+expecting "a" or "b"
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest lotsOfabOrba "ababbba"
+parse error at (line 1, column 6):
+unexpected "b"
+expecting "a"
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest lotsOfabOrba "ababba"
+[('a','b'),('a','b'),('b','a')]
+Prelude Arith CSV Lib XML Text.Parsec Main> :reload
+[5 of 5] Compiling Lib              ( /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/src/Lib.hs, /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/.stack-work/odir/Lib.o )
+
+/Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/src/Lib.hs:30:3: error:
+    • Ambiguous type variables ‘s0’, ‘m0’ arising from a use of ‘char’
+      prevents the constraint ‘(Stream s0 m0 Char)’ from being solved.
+      Relevant bindings include
+        balanced :: ParsecT s0 u m0 Char
+          (bound at /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/src/Lib.hs:29:1)
+      Probable fix: use a type annotation to specify what ‘s0’, ‘m0’ should be.
+      These potential instances exist:
+        instance [safe] Monad m => Stream [tok] m tok
+          -- Defined in ‘Text.Parsec.Prim’
+        ...plus four instances involving out-of-scope types
+        (use -fprint-potential-instances to see them all)
+    • In a stmt of a 'do' block: char '('
+      In the expression:
+        do char '('
+           many balanced
+           char ')'
+      In an equation for ‘balanced’:
+          balanced
+            = do char '('
+                 many balanced
+                 char ')'
+   |
+30 |   char '('
+   |   ^^^^^^^^
+Failed, four modules loaded.
+Prelude Arith CSV XML Text.Parsec Main> :reload
+[5 of 5] Compiling Lib              ( /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/src/Lib.hs, /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/.stack-work/odir/Lib.o )
+
+/Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/src/Lib.hs:30:3: error:
+    • Ambiguous type variables ‘s0’, ‘m0’ arising from a use of ‘char’
+      prevents the constraint ‘(Stream s0 m0 Char)’ from being solved.
+      Relevant bindings include
+        balanced :: ParsecT s0 u m0 Char
+          (bound at /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/src/Lib.hs:29:1)
+      Probable fix: use a type annotation to specify what ‘s0’, ‘m0’ should be.
+      These potential instances exist:
+        instance [safe] Monad m => Stream [tok] m tok
+          -- Defined in ‘Text.Parsec.Prim’
+        ...plus four instances involving out-of-scope types
+        (use -fprint-potential-instances to see them all)
+    • In a stmt of a 'do' block: char '('
+      In the expression:
+        do char '('
+           many balanced
+           char ')'
+      In an equation for ‘balanced’:
+          balanced
+            = do char '('
+                 many balanced
+                 char ')'
+   |
+30 |   char '('
+   |   ^^^^^^^^
+Failed, four modules loaded.
+Prelude Arith CSV XML Text.Parsec Main> :reload
+[5 of 5] Compiling Lib              ( /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/src/Lib.hs, /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/.stack-work/odir/Lib.o )
+Ok, five modules loaded.
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest balanced "(()(()))"
+()
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest balanced "(()(())"
+parse error at (line 1, column 8):
+unexpected end of input
+expecting "(" or ")"
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest balanced "(()(()))))))))))))"
+()
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest do { balanced; eof } "(()(()))))))))))))"
+
+<interactive>:28:11: error: parse error on input ‘do’
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest (do { balanced; eof }) "(()(()))))))))))))"
+parse error at (line 1, column 9):
+unexpected ')'
+expecting end of input
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest balanced "(()(("
+parse error at (line 1, column 6):
+unexpected end of input
+expecting "(" or ")"
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest (do {balanced; eof}) "(()(("
+parse error at (line 1, column 6):
+unexpected end of input
+expecting "(" or ")"
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest balanced "()("
+()
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest balanced ""
+parse error at (line 1, column 1):
+unexpected end of input
+expecting "("
+Prelude Arith CSV Lib XML Text.Parsec Main> :reload
+[5 of 5] Compiling Lib              ( /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/src/Lib.hs, /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/.stack-work/odir/Lib.o )
+Ok, five modules loaded.
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest balanced "()("
+
+<interactive>:35:1: error:
+    • No instance for (Show Rose) arising from a use of ‘parseTest’
+    • In the expression: parseTest balanced "()("
+      In an equation for ‘it’: it = parseTest balanced "()("
+Prelude Arith CSV Lib XML Text.Parsec Main> :reload
+[5 of 5] Compiling Lib              ( /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/src/Lib.hs, /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/.stack-work/odir/Lib.o )
+Ok, five modules loaded.
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest balanced "()("
+Node []
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest balanced "(((())(()))(()))"
+Node [Node [Node [Node []],Node [Node []]],Node [Node []]]
+Prelude Arith CSV Lib XML Text.Parsec Main> :reload
+[5 of 5] Compiling Lib              ( /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/src/Lib.hs, /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/.stack-work/odir/Lib.o )
+
+/Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/src/Lib.hs:56:1: error:
+    Parse error: module header, import declaration
+    or top-level declaration expected.
+   |
+56 | mystery := do
+   | ^^^^^^^^^^^^^...
+Failed, four modules loaded.
+Prelude Arith CSV XML Text.Parsec Main> :relaod
+unknown command ':relaod'
+use :? for help.
+Prelude Arith CSV XML Text.Parsec Main> :reload
+[5 of 5] Compiling Lib              ( /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/src/Lib.hs, /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/.stack-work/odir/Lib.o )
+Ok, five modules loaded.
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest mystery "0"
+parse error at (line 1, column 2):
+unexpected end of input
+expecting digit
+expected a number greater than 0
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest mystery "1"
+parse error at (line 1, column 2):
+unexpected end of input
+expecting digit or letter
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest mystery "1a"
+parse error at (line 1, column 3):
+unexpected end of input
+expecting "."
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest mystery "1a."
+(1,'a')
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest mystery "1aa."
+parse error at (line 1, column 3):
+unexpected "a"
+expecting "."
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest mystery "12ffffffffffff."
+(12,'f')
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest mystery "12fffffffffff."
+parse error at (line 1, column 14):
+unexpected "."
+expecting "f"
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest mystery "12fffffffffffff."
+parse error at (line 1, column 15):
+unexpected "f"
+expecting "."
+Prelude Arith CSV Lib XML Text.Parsec Main> cars <- readFile "ex/car_catalog.csv"
+Prelude Arith CSV Lib XML Text.Parsec Main> putStrLn
+
+<interactive>:51:1: error:
+    • No instance for (Show (String -> IO ()))
+        arising from a use of ‘print’
+        (maybe you haven't applied a function to enough arguments?)
+    • In a stmt of an interactive GHCi command: print it
+Prelude Arith CSV Lib XML Text.Parsec Main> putStrLn cars
+Year,Make,Model,Description,Price
+1997,Ford,E350,"ac, abs, moon",3000.00
+1999,Chevy,"Venture Extended Edition","",4900.00
+1999,Chevy,"Venture Extended Edition, Very Large",,5000.00
+1996,Jeep,Grand Cherokee,"MUST SELL!
+air, moon roof, loaded",4799.00
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest csv cars
+[["Year","Make","Model","Description","Price"],["1997","Ford","E350","ac, abs, moon","3000.00"],["1999","Chevy","Venture Extended Edition","","4900.00"],["1999","Chevy","Venture Extended Edition, Very Large","","5000.00"],["1996","Jeep","Grand Cherokee","MUST SELL!\nair, moon roof, loaded","4799.00"]]
+Prelude Arith CSV Lib XML Text.Parsec Main> :reload
+[5 of 5] Compiling CSV              ( /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/src/CSV.hs, /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/.stack-work/odir/CSV.o )
+Ok, five modules loaded.
+Prelude Arith CSV Lib XML Text.Parsec Main> notes <- readFile "ex/note.xml"
+Prelude Arith CSV Lib XML Text.Parsec Main> putStrLn notes
+<note>
+  <to>Tove</to>
+  <from>Jani</from>
+  <heading>Reminder</heading>
+  <body>Don't forget me this weekend!</body>
+</note>
+
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest xml notes
+Node "note" [Node "to" [Text "Tove"],Node "from" [Text "Jani"],Node "heading" [Text "Reminder"],Node "body" [Text "Don't forget me this weekend!"]]
+Prelude Arith CSV Lib XML Text.Parsec Main> notes_err <- readFile "ex/note_err.xml"
+*** Exception: ex/note_err.xml: openFile: does not exist (No such file or directory)
+Prelude Arith CSV Lib XML Text.Parsec Main> notes_err <- readFile "ex/note_error.xml"
+Prelude Arith CSV Lib XML Text.Parsec Main> putStrLn notes_err
+<note>
+  <to>Tove</to>
+  <from>Jani</Ffrom>
+  <heading>Reminder</heading>
+  <body>Don't forget me this weekend!</body>
+</note>
+
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest xml notes_err
+parse error at (line 3, column 3):
+unexpected "f"
+expecting "</"
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest xml "<first><second>text<third>more text</third></first></second>"
+parse error at (line 1, column 8):
+unexpected "s"
+expecting "</"
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest xml "<first><second>text<third>more text</third></second></first>"
+Node "first" [Node "second" [Text "text",Node "third" [Text "more text"]]]
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest xml "<first><second>text</second><third>more text</third></first>"
+Node "first" [Node "second" [Text "text"],Node "third" [Text "more text"]]
+Prelude Arith CSV Lib XML Text.Parsec Main> :reload
+[5 of 5] Compiling XML              ( /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/src/XML.hs, /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/.stack-work/odir/XML.o )
+Ok, five modules loaded.
+Prelude Arith CSV Lib XML Text.Parsec Main> notes <- readFile "ex/note.xml"
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest xml notes
+parse error at (line 2, column 12):
+unexpected "/"
+expecting letter
+Prelude Arith CSV Lib XML Text.Parsec Main> putStrLn notes
+<note>
+  <to>Tove</to>
+  <from>Jani</from>
+  <heading>Reminder</heading>
+  <body>Don't forget me this weekend!</body>
+</note>
+
+Prelude Arith CSV Lib XML Text.Parsec Main> :reload
+[5 of 5] Compiling XML              ( /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/src/XML.hs, /Users/paul/Dropbox/UO/18S/AFP/notes/Lecture8/.stack-work/odir/XML.o )
+Ok, five modules loaded.
+Prelude Arith CSV Lib XML Text.Parsec Main> notes <- readFile "ex/note.xml"
+Prelude Arith CSV Lib XML Text.Parsec Main> parseTest xml notes
+Node "note" [Node "to" [Text "Tove"],Node "from" [Text "Jani"],Node "heading" [Text "Reminder"],Node "body" [Text "Don't forget me this weekend!"]]
+Prelude Arith CSV Lib XML Text.Parsec Main> :quit
+Leaving GHCi.
+bash-3.2$ exit
+
+Process shell finished

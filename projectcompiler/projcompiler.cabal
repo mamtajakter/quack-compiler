@@ -1,0 +1,69 @@
+-- This file has been generated from package.yaml by hpack version 0.28.2.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: f8c8d93c8c9af2ab2ebd739a108809f61e733a18fa74af08a5e9f34ed4604a99
+
+name:           projcompiler
+version:        0.1.0.0
+homepage:       https://github.com/#readme
+bug-reports:    https://github.com//issues
+author:         Mamtaj Akter
+maintainer:     makter2@cs.uoregon.edu
+copyright:      2018 Mamtaj Akter
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+cabal-version:  >= 1.10
+extra-source-files:
+    ChangeLog.md
+    README.md
+
+source-repository head
+  type: git
+  location: https://github.com/
+
+library
+  hs-source-dirs:
+      src
+  build-depends:
+      base >=4.7 && <5
+    , parsec
+  exposed-modules:
+      Lexer
+      Lexer
+      Parser
+      Parser
+  other-modules:
+      Paths_proj_compiler
+  default-language: Haskell2010
+
+executable lexer
+  main-is: Lexer.hs
+  other-modules:
+      Lexer
+      Parser
+      Parser
+      Paths_proj_compiler
+  hs-source-dirs:
+      src
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , parsec
+  default-language: Haskell2010
+
+executable parser
+  main-is: Parser.hs
+  other-modules:
+      Lexer
+      Lexer
+      Parser
+      Paths_proj_compiler
+  hs-source-dirs:
+      src
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , parsec
+  default-language: Haskell2010

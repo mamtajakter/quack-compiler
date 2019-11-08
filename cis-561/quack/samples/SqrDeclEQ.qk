@@ -1,0 +1,86 @@
+/**
+ * A simple sample Quack program
+ */
+
+class Pt(x: Integer, y: Integer) extends Obj {
+  this.x : Integer = x;
+  this.y : Integer = y;
+
+  def String() : String {
+      return "(" + this.x.String() + ","
+                 + this.y.String() + ")";
+  }
+
+  def Plus(other: Pt) : Pt {
+      return Pt(this.x + other.x, this.y + other.y);
+  }
+
+  def _x() : Integer {
+      return this.x;
+  }
+
+  def _y() : Integer {
+      return this.y;
+  }
+
+  /* Note because EQUAL overloads Obj.EQUAL, the argument 'other'
+   * must be type Obj and not type Pt.  Typecase lets us "downcast"
+   * it to Pt if it has dynamic type Pt (or subtype of Pt).
+   */
+  def  Equal(other: Obj) : Boolean {
+       typecase other {
+         pt: Pt {  return this.x == pt.x and this.y == pt.y; }
+       }
+       return False;
+  }
+
+}
+
+class Rect(ll: Pt, ur: Pt) extends Obj {
+  this.ll: Pt = ll;
+  this.ur: Pt  = ur;
+
+  def translate(delta: Pt) : Rect {
+      return Rect(ll+delta, ur+delta);
+  }
+
+  def String() : Obj {
+      lr = Pt( this.ur._y(), this.ll._x() );  // lower right
+      ul = Pt( this.ll._x(), this.ur._y() );  // upper left
+      return "(" + this.ll.String() + ", "
+                 +      ul.String() + ","
+                 + this.ur.String() + ","
+                 +      lr.String() + ")";
+  }
+
+  /* The EQUAL method of Rect can be called as ==, and the
+   * calls the EQUAL method of Pt.
+   */
+
+   /*
+   def Equal(other: Obj) : Boolean {
+       typecase other {
+          r: Rect { return this.lr == r.lr
+	               and this.ur == r.ur;
+		  }
+	}
+	return False;
+   }
+
+   */
+}
+
+class Square(ll: Pt, side: Integer) extends Rect {
+  this.ll = ll;
+  this.ur = Pt(this.ll._x() + side, this.ll._y() + side);
+}
+
+a_square: Rect = Square( Pt(3,3), 5 );
+b_square: Rect = Rect( Pt(5,5), Pt(10,10));
+a_square = a_square.translate( Pt(2,2) );
+a_square.Print();
+if a_square == b_square {
+   "They are the same".Print();
+} else {
+   (b_square.String() + " is different").Print();
+}

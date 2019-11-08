@@ -1,0 +1,3 @@
+[Default]
+name = Bosco Ndemeye
+repo = https://bitbucket.org/mndemeye/cis-561/src/master/a0/
